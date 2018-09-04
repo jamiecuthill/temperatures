@@ -28,6 +28,11 @@ func TestCloserToSecondValue(t *testing.T) {
 	expectNearestTemperature(t, 5, set.Nearest(4.9))
 }
 
+func TestCloserToThirdValue(t *testing.T) {
+	set := TemperatureSet([]Temperature{-1, 0, 1})
+	expectNearestTemperature(t, 1, set.Nearest(0.8))
+}
+
 func TestReverseSetCloserToFirstValue(t *testing.T) {
 	set := TemperatureSet([]Temperature{5, 3})
 	expectNearestTemperature(t, 3, set.Nearest(3.1))
@@ -45,6 +50,11 @@ func TestAllNegatives(t *testing.T) {
 		expectNearestTemperature(t, row.expected, set.Nearest(row.in))
 	}
 
+}
+
+func TestUnsortedSetReturnsExpected(t *testing.T) {
+	set := TemperatureSet([]Temperature{10, 5, 8, -2, 3})
+	expectNearestTemperature(t, -2, set.Nearest(0))
 }
 
 func TestEquidistantBetweenTwoTempsReturnsFirstNearest(t *testing.T) {
