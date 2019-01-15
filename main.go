@@ -21,23 +21,20 @@ type TemperatureSet []Temperature
 type Temperature float64
 
 func (s TemperatureSet) Nearest(to Temperature) Temperature {
-	var diffs []float64 = make([]float64, len(s))
 
-	for i, t := range s {
+	for _, t := range s {
 		if to == t {
 			return t
 		}
-		diffs[i] = math.Abs(float64(to - t))
 	}
 
-	var min float64
-	var closest int
-	for i, diff := range diffs {
-		if min == 0 || diff < min {
-			min = diff
-			closest = i
+	var nearest Temperature = s[0]
+
+	for i := 1; i < len(s); i++ {
+		if math.Abs(float64(to-nearest)) > math.Abs(float64(to-s[i])) {
+			nearest = s[i]
 		}
 	}
 
-	return s[closest]
+	return nearest
 }
