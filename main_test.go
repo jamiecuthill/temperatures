@@ -71,13 +71,12 @@ func TestReturnsOnlyTemperaturesFromSet(t *testing.T) {
 func run(input float64) ([]byte, error) {
 	args := []string{"-origin", fmt.Sprint(input)}
 	args = append(args, os.Args[1:]...)
-	fmt.Println(args)
+
 	cmd := exec.Command(os.Args[0], args...)
 	cmd.Env = []string{"GO_TEST_MODE=run"}
 	return cmd.Output()
 }
 
 func parseOutput(out []byte) (float64, error) {
-	fmt.Println(string(out))
 	return strconv.ParseFloat(strings.Trim(string(out), "\n"), 64)
 }
